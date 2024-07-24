@@ -1,12 +1,14 @@
 require("dotenv").config();
+
 const express = require("express");
-const cookieParser = require("cookie-parser");
 const app = express();
 
 // Connect Database
 const uri = process.env.MONGODB_URI;
 const connectMongoDB = require("./config/connect.js");
 connectMongoDB(uri);
+
+const cookieParser = require("cookie-parser");
 
 const { restrictUnauthenticated } = require("./middlewares/unauth.js");
 
@@ -30,3 +32,4 @@ app.use("/", staticRouter);
 app.use((err, req, res, next) => res.status(500).json({ error: err.message }));
 
 app.listen(process.env.PORT);
+// module.exports = app;
